@@ -1,0 +1,14 @@
+A = (1,1);
+B = (3,2);
+C = (6,-2);
+Circle(A,B,C);
+Segment(A, B);
+Segment(C, B);
+Segment(A, C);
+
+PerpendicularBisector(A, B);
+PerpendicularBisector(C, B);
+PerpendicularBisector(A, C);
+
+D = (2,-1);
+Circle(D,B,C);

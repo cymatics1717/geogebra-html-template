@@ -19,16 +19,23 @@ var parameters = {
     "capturingThreshold": 3,
     // add code here to run when the applet starts
     "appletOnLoad": function(api) {
-        api.evalCommand("A = (1,1)");
-        api.evalCommand("B = (3,2)");
-        api.evalCommand("C = (6,-2)");
-        api.evalCommand("Circle(A,B,C)");
-        api.evalCommand("Segment(A, B)");
-        api.evalCommand("Segment(C, B)");
-        api.evalCommand("Segment(A, C)");
-        api.evalCommand("PerpendicularBisector(A, B)");
-        api.evalCommand("PerpendicularBisector(C, B)");
-        api.evalCommand("PerpendicularBisector(A, C)");
+        var f = new XMLHttpRequest();
+        console.log(window.location.pathname)
+        console.log(window.location.origin)
+        f.open("GET", "cmd.txt", false);
+        f.onreadystatechange = function() {
+            if (f.readyState === 4) {
+                if (f.status === 200 || f.status == 0) {
+                    var res = f.responseText;
+                    const lines = res.split(/\r\n|\n/);
+                    lines.forEach(function(line) {
+                        // console.log(line);
+                        api.evalCommand(line);
+                    });
+                }
+            }
+        }
+        f.send(null);
     },
     "showFullscreenButton": true,
     "scale": 1,
